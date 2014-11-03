@@ -1,27 +1,38 @@
 package com.navil.snowy;
 
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.navil.snowy.screens.Splash;
+import com.navil.snowy.util.ActionResolver;
 
-public class SnowyGame extends ApplicationAdapter {
-	SpriteBatch batch;
-	Texture img;
+public class SnowyGame extends Game {
 	
-	@Override
-	public void create () {
-		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
+	public static final int WIDTH = 1280, HEIGHT = 720;
+	public static float snowyMovespeed = 15;
+	public static final int gravity = 20;
+	public static final float fireInterval = 1;
+	public static final int scorePerFlame = 10;
+	public static float invincibleTimer = 3;
+	public static final int numLifes = 1;
+	
+	public static ActionResolver actionResolver;
+
+	public SnowyGame(ActionResolver ar) {
+		SnowyGame.actionResolver = ar;
 	}
 
 	@Override
-	public void render () {
-		Gdx.gl.glClearColor(1, 0, 0, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		batch.begin();
-		batch.draw(img, 0, 0);
-		batch.end();
+	public void create() {
+		setScreen(new Splash());
 	}
+	@Override
+	public void dispose(){
+		actionResolver.showOrLoadInterstital();
+		super.dispose();
+	}
+	
 }
