@@ -1,0 +1,107 @@
+
+myPack.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+arial50
+  rotate: false
+  xy: 1, 103
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+button-down
+  rotate: false
+  xy: 1, 1
+  size: 100, 100
+  split: 32, 29, 28, 29
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+button
+  rotate: false
+  xy: 515, 515
+  size: 100, 100
+  split: 20, 24, 30, 30
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+
+myPack2.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+greek1201
+  rotate: false
+  xy: 1, 1
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+
+myPack3.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+greek1202
+  rotate: false
+  xy: 1, 1
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+
+myPack4.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+greek1203
+  rotate: false
+  xy: 1, 1
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+
+myPack5.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+gulim1001
+  rotate: false
+  xy: 1, 1
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+
+myPack6.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+gulim1002
+  rotate: false
+  xy: 1, 1
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+
+myPack7.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+unpacked/button-down
+  rotate: false
+  xy: 1, 1
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+unpacked/button
+  rotate: false
+  xy: 103, 1
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
