@@ -1,27 +1,14 @@
 package com.navil.snowy.android;
-import com.google.android.gms.games.Games;
-import com.google.android.gms.games.leaderboard.*;
-
-import android.app.Dialog;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.Window;
-import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 import com.navil.snowy.SnowyGame;
-import com.navil.snowy.screens.GameScreen;
 import com.navil.snowy.util.ActionResolver;
 
 public class AndroidLauncher extends AndroidApplication implements ActionResolver {

@@ -1,6 +1,5 @@
 package com.navil.snowy.util;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.navil.snowy.SnowyGame;

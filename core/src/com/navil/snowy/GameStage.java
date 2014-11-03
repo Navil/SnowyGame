@@ -1,15 +1,12 @@
 package com.navil.snowy;
 
-import com.badlogic.gdx.ApplicationListener;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.navil.snowy.screens.GameScreen;
-import com.navil.snowy.util.ActionResolver;
 
 public class GameStage extends Stage implements InputProcessor{
 
@@ -19,7 +16,6 @@ public class GameStage extends Stage implements InputProcessor{
 	private World world;
 	private final float TIME_STEP = 1 / 300f;
 	private float accumulator = 0f;
-	private float timeSinceLastFire = 0;
 
 	private GameScreen gameScreen;
 	private byte fingersDown = 0;
@@ -51,7 +47,7 @@ public class GameStage extends Stage implements InputProcessor{
 
 	public void draw() {
 		super.draw();
-		//renderer.render(world, camera.combined);
+		renderer.render(world, camera.combined);
 	}
 
 	@Override

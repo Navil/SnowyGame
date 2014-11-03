@@ -7,6 +7,6 @@ import com.navil.snowy.SnowyGame;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		new LwjglApplication(new SnowyGame(), config);
+		new LwjglApplication(new SnowyGame(null), config);
 	}
 }
