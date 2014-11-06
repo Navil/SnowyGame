@@ -3,6 +3,7 @@ package com.navil.snowy.screens;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.math.Vector2;
@@ -26,6 +27,7 @@ import com.navil.snowy.actors.FireActor;
 import com.navil.snowy.actors.SnowyActor;
 import com.navil.snowy.util.Assets;
 import com.navil.snowy.util.MyContactListener;
+import com.navil.snowy.util.ScoreHelper;
 
 public class GameScreen implements Screen {
 
@@ -199,9 +201,11 @@ public class GameScreen implements Screen {
 	
 	public void setGameOver() {
 		gameOver = true;
+		if(ScoreHelper.loadLocalScore()<score)
+			ScoreHelper.saveLocalScore(score);
 		showLose();
 	}
-
+	
 	private void showLose() {
 		removeFire = false;
 		
@@ -229,7 +233,7 @@ public class GameScreen implements Screen {
 		scoreLabel.setX(Gdx.graphics.getWidth()/2-scoreLabel.getWidth()/2);
 		scoreLabel.setY(youLost.getY()-scoreLabel.getHeight()-50);
 		
-		Label highScore= new Label("Highscore: "+score,Assets.getInstance().getSkin(),"normaltext",Color.BLACK);
+		Label highScore= new Label("Highscore: "+ScoreHelper.loadLocalScore(),Assets.getInstance().getSkin(),"normaltext",Color.BLACK);
 		highScore.setX(Gdx.graphics.getWidth()/2-highScore.getWidth()/2);
 		highScore.setY(scoreLabel.getY()-scoreLabel.getHeight());
 		
