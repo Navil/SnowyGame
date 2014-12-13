@@ -193,7 +193,7 @@ public class GameScreen implements Screen {
 		    }
 		}, SnowyGame.invincibleTimer);
 		numLifes --;
-		if(numLifes == 0)
+		if(numLifes <= 0)
 			setGameOver();
 		
 		//Gdx.app.error("Lifes", ""+numLifes);
@@ -242,7 +242,8 @@ public class GameScreen implements Screen {
         playAgain.addListener(new ClickListener(){
             @Override 
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button){ 
-                SnowyGame.actionResolver.showOrLoadInterstital();
+                if(SnowyGame.advertisement)
+                	SnowyGame.actionResolver.showOrLoadInterstital();
             	((Game)Gdx.app.getApplicationListener()).setScreen(new GameScreen());
                 return true;
             }
@@ -254,8 +255,8 @@ public class GameScreen implements Screen {
         upload.addListener(new ClickListener(){
             @Override 
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button){ 
-                ((Game)Gdx.app.getApplicationListener()).setScreen(new GameScreen());
-                
+                //((Game)Gdx.app.getApplicationListener()).setScreen(new GameScreen());
+                SnowyGame.actionResolver.submitScore(score);
                 return true;
             }
         });

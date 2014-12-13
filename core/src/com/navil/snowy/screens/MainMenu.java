@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.navil.snowy.SnowyGame;
 import com.navil.snowy.util.Assets;
 
 public class MainMenu implements Screen {
@@ -61,6 +62,7 @@ public class MainMenu implements Screen {
             @Override 
             public void clicked(InputEvent event, float x, float y){
                 //((Game)Gdx.app.getApplicationListener()).setScreen(new GameScreen());
+            	SnowyGame.actionResolver.showScores();
             }
         });
 		

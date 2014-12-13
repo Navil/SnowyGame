@@ -2,7 +2,7 @@ package com.navil.snowy;
 
 import com.badlogic.gdx.Game;
 import com.navil.snowy.screens.Splash;
-import com.navil.snowy.util.ActionResolver;
+import com.navil.snowy.util.IGoogleServices;
 
 public class SnowyGame extends Game {
 	
@@ -13,10 +13,12 @@ public class SnowyGame extends Game {
 	public static final int scorePerFlame = 10;
 	public static float invincibleTimer = 3;
 	public static final int numLifes = 1;
+	public static final boolean advertisement = false;
 	
-	public static ActionResolver actionResolver;
+	public static IGoogleServices actionResolver;
 
-	public SnowyGame(ActionResolver ar) {
+
+	public SnowyGame(IGoogleServices ar) {
 		SnowyGame.actionResolver = ar;
 	}
 
@@ -26,7 +28,6 @@ public class SnowyGame extends Game {
 	}
 	@Override
 	public void dispose(){
-		actionResolver.showOrLoadInterstital();
 		super.dispose();
 	}
 	

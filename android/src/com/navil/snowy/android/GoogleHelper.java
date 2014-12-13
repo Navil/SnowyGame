@@ -1,8 +1,35 @@
 package com.navil.snowy.android;
 
+import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
 
-public class GoogleHelper {
-	public void setUp(){
+import com.badlogic.gdx.backends.android.AndroidApplication;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.games.Games;
+import com.google.android.gms.plus.Plus;
+import com.google.example.games.basegameutils.GameHelper.GameHelperListener;
+import com.navil.snowy.SnowyGame;
+
+public class GoogleHelper implements GameHelperListener {
+
+	@Override
+	public void onSignInFailed() {
+		// TODO Auto-generated method stub
+		Log.e("SignIn","Failed");
 		
 	}
+
+	@Override
+	public void onSignInSucceeded() {
+		// TODO Auto-generated method stub
+		Log.e("SignIn","Succeeded");
+		
+	}
+
+
 }
