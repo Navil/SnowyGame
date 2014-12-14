@@ -5,6 +5,7 @@ public interface IGoogleServices {
 	public void signOut();
 	public void rateGame();
 	public void submitScore(int score);
+	public void submitPreviousScore();
 	public void showScores();
 	public boolean isSignedIn();
 	public void showOrLoadInterstital();

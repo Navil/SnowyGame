@@ -37,6 +37,7 @@ public class AndroidLauncher extends AndroidApplication implements
 	private InterstitialAd interstitialAd;
 
 	private GameHelper gameHelper;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -118,8 +119,18 @@ public class AndroidLauncher extends AndroidApplication implements
 					gameHelper.getApiClient(),
 					getString(R.string.leaderboard_id)), 9002);
 		} else {
-			// Maybe sign in here then redirect to submitting score?
 			signIn();
+		}
+	}
+	
+	@Override
+	public void submitPreviousScore(){
+		if (isSignedIn() == true) {
+			Games.Leaderboards.submitScore(gameHelper.getApiClient(),
+					getString(R.string.leaderboard_id), SnowyGame.currentScore);
+			startActivityForResult(Games.Leaderboards.getLeaderboardIntent(
+					gameHelper.getApiClient(),
+					getString(R.string.leaderboard_id)), 9002);
 		}
 	}
 

@@ -26,6 +26,7 @@ import com.navil.snowy.actors.BottomLine;
 import com.navil.snowy.actors.FireActor;
 import com.navil.snowy.actors.SnowyActor;
 import com.navil.snowy.util.Assets;
+import com.navil.snowy.util.GoogleActions;
 import com.navil.snowy.util.MyContactListener;
 import com.navil.snowy.util.ScoreHelper;
 
@@ -50,6 +51,7 @@ public class GameScreen implements Screen {
 	private GameStage stage;
 	public boolean moveLeft, moveRight;
 	private int score = 0;
+	
 
 	@Override
 	public void show() {
@@ -223,70 +225,12 @@ public class GameScreen implements Screen {
 		flames.clear();
 		
 		//save score
-		
-		//show the interface
-		final Label youLost = new Label("Snowy melted!",Assets.getInstance().getSkin(),"menutitle",Color.RED);
-		//final TextField youLost = new TextField("Snowy melted!",skin);
-		youLost.setPosition(SnowyGame.WIDTH/2-youLost.getWidth()/2, SnowyGame.HEIGHT-youLost.getHeight());
-		
-		scoreLabel = new Label("Score: "+score,Assets.getInstance().getSkin(),"normaltext",Color.BLACK);
-		scoreLabel.setX(Gdx.graphics.getWidth()/2-scoreLabel.getWidth()/2);
-		scoreLabel.setY(youLost.getY()-scoreLabel.getHeight()-50);
-		
-		Label highScore= new Label("Highscore: "+ScoreHelper.loadLocalScore(),Assets.getInstance().getSkin(),"normaltext",Color.BLACK);
-		highScore.setX(Gdx.graphics.getWidth()/2-highScore.getWidth()/2);
-		highScore.setY(scoreLabel.getY()-scoreLabel.getHeight());
-		
-		final TextButton playAgain = new TextButton("Play Again", Assets.getInstance().getSkin(), "default");
-        playAgain.setPosition(Gdx.graphics.getWidth() /2 - playAgain.getWidth()/2, Gdx.graphics.getHeight()/2 - playAgain.getHeight());
-        playAgain.addListener(new ClickListener(){
-            @Override 
-            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button){ 
-                if(SnowyGame.advertisement)
-                	SnowyGame.actionResolver.showOrLoadInterstital();
-            	((Game)Gdx.app.getApplicationListener()).setScreen(new GameScreen());
-                return true;
-            }
-        });
-        
-        final TextButton upload = new TextButton("Upload", Assets.getInstance().getSkin(), "default");
-        upload.setWidth(playAgain.getWidth());
-        upload.setPosition(Gdx.graphics.getWidth() /2 - upload.getWidth()/2, playAgain.getY()-playAgain.getHeight()-10);
-        upload.addListener(new ClickListener(){
-            @Override 
-            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button){ 
-                //((Game)Gdx.app.getApplicationListener()).setScreen(new GameScreen());
-                SnowyGame.actionResolver.submitScore(score);
-                return true;
-            }
-        });
-        
-        final TextButton exitButton = new TextButton("Exit", Assets.getInstance().getSkin());
-
-        exitButton.setWidth(150);
-        exitButton.setHeight(100);
-        exitButton.setPosition(Gdx.graphics.getWidth() - 20 - exitButton.getWidth(), 20);
-        exitButton.addListener(new ClickListener(){
-            @Override 
-            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button){
-                //((Game)Gdx.app.getApplicationListener()).setScreen(new GameScreen());
-            	Gdx.app.exit();
-            	return true;
-            }
-        });
-        
-        
-        stage.addActor(scoreLabel);
-        stage.addActor(highScore);
-        stage.addActor(youLost);
-        stage.addActor(playAgain);
-        stage.addActor(exitButton);
-        stage.addActor(upload);
-        Gdx.input.setInputProcessor(stage);
+		SnowyGame.currentScore = score;
+		((Game)Gdx.app.getApplicationListener()).setScreen(new AfterGameScreen());
+       
        
 	}
 	public boolean isGameOver() {
 		return gameOver;
 	}
-
 }

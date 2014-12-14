@@ -26,7 +26,6 @@ public class Splash implements Screen{
         if(Assets.getInstance().update() && splashImage.getActions().size==0){ // check if all files are loaded
             
             if(Assets.getInstance().getSkin() == null){
-            	Gdx.app.error("SetSkin","In Splash");
             	Assets.getInstance().setMenuSkin(); // uses files to create menuSkin    	
             }
             ((Game)Gdx.app.getApplicationListener()).setScreen(new MainMenu());

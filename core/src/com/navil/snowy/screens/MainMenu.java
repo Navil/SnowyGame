@@ -12,11 +12,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.navil.snowy.SnowyGame;
 import com.navil.snowy.util.Assets;
+import com.navil.snowy.util.GoogleActions;
 
 public class MainMenu implements Screen {
 
 	private Stage stage = new Stage();
-
+	private TextButton scoreButton;
 
 	@Override
 	public void render(float delta) {
@@ -53,16 +54,23 @@ public class MainMenu implements Screen {
             }
         });
         
-        final TextButton scoreButton = new TextButton("Scoreboard", Assets.getInstance().getSkin());
+        scoreButton = new TextButton("Scoreboard", Assets.getInstance().getSkin());
 
         scoreButton.setWidth(460);
         scoreButton.setHeight(256);
+        
         scoreButton.setPosition(Gdx.graphics.getWidth() *3/4 - scoreButton.getWidth()/2, Gdx.graphics.getHeight()/2 - scoreButton.getHeight()/2);
         scoreButton.addListener(new ClickListener(){
             @Override 
             public void clicked(InputEvent event, float x, float y){
                 //((Game)Gdx.app.getApplicationListener()).setScreen(new GameScreen());
+            	//scoreButton.setDisabled(true);
+            	scoreButton.setDisabled(true);
+            	SnowyGame.googleAction = GoogleActions.OPENSCOREBOARD;
+            	scoreButton.setChecked(false);
             	SnowyGame.actionResolver.showScores();
+            	scoreButton.setDisabled(false);
+            	//return true;
             }
         });
         
@@ -115,5 +123,4 @@ public class MainMenu implements Screen {
 		// TODO Auto-generated method stub
 
 	}
-
 }
