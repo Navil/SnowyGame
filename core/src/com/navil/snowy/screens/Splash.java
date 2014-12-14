@@ -24,7 +24,11 @@ public class Splash implements Screen{
         stage.draw(); //draw all actors on the Stage.getBatch()
         
         if(Assets.getInstance().update() && splashImage.getActions().size==0){ // check if all files are loaded
-            Assets.getInstance().setMenuSkin(); // uses files to create menuSkin
+            
+            if(Assets.getInstance().getSkin() == null){
+            	Gdx.app.error("SetSkin","In Splash");
+            	Assets.getInstance().setMenuSkin(); // uses files to create menuSkin    	
+            }
             ((Game)Gdx.app.getApplicationListener()).setScreen(new MainMenu());
         }
         
@@ -38,13 +42,14 @@ public class Splash implements Screen{
 
 	@Override
 	public void show() {
-		Gdx.app.error("SplashShow", "called");
 		texture  = new Texture(Gdx.files.internal("logo720.jpg"));
 		splashImage = new Image(texture);
 		stage.addActor(splashImage);
 		splashImage.addAction(Actions.sequence(Actions.alpha(0),Actions.fadeIn(0.0f),Actions.delay(0.5f)));
 		//fadeInt(2.0f)
-		Assets.getInstance().queueLoading(); 
+		if(Assets.getInstance().getSkin() == null){
+			Assets.getInstance().queueLoading(); 
+		}
 		
 	}
 
@@ -68,7 +73,6 @@ public class Splash implements Screen{
 
 	@Override
 	public void dispose() {
-		Gdx.app.error("DisposeSplash", "called");
 		texture.dispose();
 		stage.dispose();
 	}

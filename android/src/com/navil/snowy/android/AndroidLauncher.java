@@ -49,6 +49,7 @@ public class AndroidLauncher extends AndroidApplication implements
 
 		setupInterstitial();
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
+		config.useImmersiveMode = true;
 		//super.hideStatusBar(true);
 		initialize(new SnowyGame(this), config);
 

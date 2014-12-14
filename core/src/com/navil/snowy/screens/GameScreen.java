@@ -261,11 +261,26 @@ public class GameScreen implements Screen {
             }
         });
         
+        final TextButton exitButton = new TextButton("Exit", Assets.getInstance().getSkin());
+
+        exitButton.setWidth(150);
+        exitButton.setHeight(100);
+        exitButton.setPosition(Gdx.graphics.getWidth() - 20 - exitButton.getWidth(), 20);
+        exitButton.addListener(new ClickListener(){
+            @Override 
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button){
+                //((Game)Gdx.app.getApplicationListener()).setScreen(new GameScreen());
+            	Gdx.app.exit();
+            	return true;
+            }
+        });
+        
         
         stage.addActor(scoreLabel);
         stage.addActor(highScore);
         stage.addActor(youLost);
         stage.addActor(playAgain);
+        stage.addActor(exitButton);
         stage.addActor(upload);
         Gdx.input.setInputProcessor(stage);
        

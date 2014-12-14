@@ -1,7 +1,9 @@
 package com.navil.snowy;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.navil.snowy.screens.Splash;
+import com.navil.snowy.util.Assets;
 import com.navil.snowy.util.IGoogleServices;
 
 public class SnowyGame extends Game {
@@ -28,6 +30,7 @@ public class SnowyGame extends Game {
 	}
 	@Override
 	public void dispose(){
+		Assets.getInstance().dispose();
 		super.dispose();
 	}
 	

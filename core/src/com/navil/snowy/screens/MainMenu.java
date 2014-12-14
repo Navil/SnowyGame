@@ -65,6 +65,19 @@ public class MainMenu implements Screen {
             	SnowyGame.actionResolver.showScores();
             }
         });
+        
+        final TextButton exitButton = new TextButton("Exit", Assets.getInstance().getSkin());
+
+        exitButton.setWidth(150);
+        exitButton.setHeight(100);
+        exitButton.setPosition(Gdx.graphics.getWidth() - 20 - exitButton.getWidth(), 20);
+        exitButton.addListener(new ClickListener(){
+            @Override 
+            public void clicked(InputEvent event, float x, float y){
+                //((Game)Gdx.app.getApplicationListener()).setScreen(new GameScreen());
+            	Gdx.app.exit();
+            }
+        });
 		
         final Label copyright = new Label("\u00A9 Thomas Anderl 2014", Assets.getInstance().getSkin(),"normaltext",Color.BLACK);
         copyright.setX(Gdx.graphics.getWidth()/2-copyright.getWidth()/2);
@@ -73,6 +86,7 @@ public class MainMenu implements Screen {
         stage.addActor(label);
 		stage.addActor(startButton);
 		stage.addActor(scoreButton);
+		stage.addActor(exitButton);
 		stage.addActor(copyright);
 		Gdx.input.setInputProcessor(stage);
 		

@@ -39,6 +39,11 @@ public class Assets {
     public boolean update() {
         return manager.update();
     }
+    public void dispose(){
+    	manager.clear();
+    	menuSkin = null;
+    	Assets.INSTANCE = null;
+    }
     public static Assets getInstance()
     {
     	if(Assets.INSTANCE == null)
