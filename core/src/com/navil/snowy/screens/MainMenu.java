@@ -1,16 +1,22 @@
 package com.navil.snowy.screens;
 
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Random;
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.navil.snowy.SnowyGame;
+import com.navil.snowy.actors.Snowflake;
 import com.navil.snowy.util.Assets;
 import com.navil.snowy.util.GoogleActions;
 
@@ -18,14 +24,27 @@ public class MainMenu implements Screen {
 
 	private Stage stage = new Stage();
 	private TextButton scoreButton;
+	private float timeSinceLastFlake = 0;
+	private final double flakeInterval = 0.05;
 
 	@Override
 	public void render(float delta) {
-		Gdx.gl.glClearColor(0.8f, 0.8f, 0.8f, 1);
+		Gdx.gl.glClearColor(0.25f, 0.25f, 0.6f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		
 		stage.act();
 		stage.draw();
 		
+		timeSinceLastFlake += delta;
+		if (timeSinceLastFlake >= flakeInterval) {
+
+			timeSinceLastFlake = 0;
+			Snowflake sf = new Snowflake();
+			sf.setPosition(new Random().nextInt(SnowyGame.WIDTH-sf.getTexture().getWidth()),SnowyGame.HEIGHT+100);
+			//snowFlakes.add(sf);
+			stage.addActor(sf);
+			//Gdx.app.error("NuMFlaked", ""+snowFlakes.size());
+		}
 		
 	}
 
@@ -38,9 +57,9 @@ public class MainMenu implements Screen {
 	public void show() {
 		// TODO Auto-generated method stub
 		
-		final Label label = new Label("Snowy the man!",Assets.getInstance().getSkin(),"menutitle",Color.RED);
+		final Label label = new Label("Snowy the man!",Assets.getInstance().getSkin(),"menutitle",Color.WHITE);
 		label.setPosition(Gdx.graphics.getWidth()/2-label.getWidth()/2,Gdx.graphics.getHeight()-label.getHeight()-20);
-		
+		label.setColor(Color.WHITE);
 		final TextButton startButton = new TextButton("Start Game", Assets.getInstance().getSkin());
 
         startButton.setWidth(460);
@@ -97,6 +116,9 @@ public class MainMenu implements Screen {
 		stage.addActor(exitButton);
 		stage.addActor(copyright);
 		Gdx.input.setInputProcessor(stage);
+		
+		
+		
 		
 	}
 

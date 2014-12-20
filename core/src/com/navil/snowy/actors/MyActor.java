@@ -5,17 +5,17 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
-public class MyActor extends Actor{
+public class MyActor extends Actor {
 	private Body body;
 	private Texture texture;
-	
-	public MyActor(float x, float y,float width, float height){
-		setBounds(x,y,width,height);
+
+	public MyActor(float x, float y, float width, float height) {
+		setBounds(x, y, width, height);
 	}
-	
-	public MyActor(Texture texture){
+
+	public MyActor(Texture texture) {
 		this.texture = texture;
-		
+
 	}
 
 	public Body getBody() {
@@ -23,7 +23,7 @@ public class MyActor extends Actor{
 	}
 
 	public void setBody(Body body, String description) {
-		
+
 		this.body = body;
 		this.body.setUserData(description);
 		updatePosition();
@@ -32,25 +32,38 @@ public class MyActor extends Actor{
 	public Texture getTexture() {
 		return texture;
 	}
-	
-	public void updatePosition(){
-		if(texture != null)
-			super.setPosition(getBody().getPosition().x-getTexture().getWidth()/2,getBody().getPosition().y-getTexture().getHeight()/2);
+
+	public void updatePosition() {
+		if (texture != null)
+			super.setPosition(getBody().getPosition().x
+					- getTexture().getWidth() / 2, getBody().getPosition().y
+					- getTexture().getHeight() / 2);
 	}
-	
+
 	@Override
-	public void setPosition(float x, float y){
+	public void setPosition(float x, float y) {
 		super.setPosition(x, y);
-		setBounds(x,y,getTexture().getWidth(),getTexture().getHeight());
+		setBounds(x, y, getTexture().getWidth(), getTexture().getHeight());
 	}
-	
+
 	@Override
-    public void draw(Batch batch, float alpha){
-		if(texture != null){
-			batch.draw(texture,getX(),getY());
+	public void draw(Batch batch, float alpha) {
+		if (texture != null) {
+			if (getRotation() != 1)
+				batch.draw(texture, this.getX(), getY(), this.getOriginX(),
+						this.getOriginY(), this.getWidth(), this.getHeight(),
+						this.getScaleX(), this.getScaleY(), this.getRotation(),
+						0, 0, texture.getWidth(), texture.getHeight(), false,
+						false);
+			else
+				// batch.draw(texture, getX(), getY(), getX(), getOriginY(),
+				// getWidth(), getHeight(), getScaleX(), getScaleY(),
+				// getRotation(), (int)getX(), (int)getY(), (int)getWidth(),
+				// (int)getHeight(), false,false);
+				batch.draw(texture, getX(), getY(), getWidth(), getHeight());
 		}
-		
-		//super.draw(batch, alpha);
-        //setPosition(body.getPosition().x-texture.getWidth()/2,0);
-    }
+
+		// super.draw(batch, alpha);
+		// setPosition(body.getPosition().x-texture.getWidth()/2,0);
+	}
 }

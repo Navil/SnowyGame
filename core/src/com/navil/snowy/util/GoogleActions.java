@@ -1,6 +1,6 @@
 package com.navil.snowy.util;
 
 public enum GoogleActions {
-	OPENSCOREBOARD, UPLOADSCORE, NOTHING
+	OPENSCOREBOARD, UPLOADSCORE, DONOTHING
 	
 }

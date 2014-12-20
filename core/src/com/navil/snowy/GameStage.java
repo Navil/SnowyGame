@@ -78,6 +78,7 @@ public class GameStage extends Stage implements InputProcessor{
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+		gameScreen.setPrePhase(false);
 		if (gameScreen.isGameOver())
 			super.touchDown(screenX, screenY, pointer, button);
 		else {

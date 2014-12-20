@@ -18,7 +18,7 @@ public class SnowyGame extends Game {
 	public static final int numLifes = 1;
 	public static final boolean advertisement = false;
 	
-	public static GoogleActions googleAction = GoogleActions.NOTHING;
+	public static GoogleActions googleAction = GoogleActions.DONOTHING;
 	
 	public static IGoogleServices actionResolver;
 
