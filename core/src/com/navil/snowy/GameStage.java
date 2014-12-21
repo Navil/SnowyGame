@@ -1,11 +1,15 @@
 package com.navil.snowy;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.navil.snowy.screens.GameScreen;
 
 public class GameStage extends Stage implements InputProcessor{
@@ -28,10 +32,10 @@ public class GameStage extends Stage implements InputProcessor{
 	}
 
 	public void setUpCamera() {
-		camera = new OrthographicCamera(SnowyGame.WIDTH, SnowyGame.HEIGHT);
-		camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
+		camera = new AndroidCamera(SnowyGame.WIDTH, SnowyGame.HEIGHT);
 		camera.update();
 	}
+	
 
 	@Override
 	public void act(float delta) {
@@ -44,7 +48,7 @@ public class GameStage extends Stage implements InputProcessor{
 			accumulator -= TIME_STEP;
 		}
 	}
-
+	
 	public void draw() {
 		super.draw();
 		renderer.render(world, camera.combined);

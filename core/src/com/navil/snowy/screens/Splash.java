@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.navil.snowy.AndroidCamera;
+import com.navil.snowy.SnowyGame;
 import com.navil.snowy.util.Assets;
 
 public class Splash implements Screen{
@@ -35,7 +37,7 @@ public class Splash implements Screen{
 
 	@Override
 	public void resize(int width, int height) {
-		// TODO Auto-generated method stub
+		stage.getViewport().setCamera(new AndroidCamera(SnowyGame.WIDTH, SnowyGame.HEIGHT));
 		
 	}
 

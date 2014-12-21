@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.navil.snowy.AndroidCamera;
 import com.navil.snowy.SnowyGame;
 import com.navil.snowy.util.Assets;
 import com.navil.snowy.util.GoogleActions;
@@ -30,7 +31,7 @@ public class AfterGameScreen implements Screen {
 
 	@Override
 	public void resize(int width, int height) {
-		// TODO Auto-generated method stub
+		stage.getViewport().setCamera(new AndroidCamera(SnowyGame.WIDTH, SnowyGame.HEIGHT));
 
 	}
 
@@ -47,20 +48,20 @@ public class AfterGameScreen implements Screen {
 		Label scoreLabel = new Label("Score: " + SnowyGame.currentScore, Assets
 				.getInstance().getSkin(), "normaltext", Color.BLACK);
 		scoreLabel
-				.setX(Gdx.graphics.getWidth() / 2 - scoreLabel.getWidth() / 2);
+				.setX(SnowyGame.WIDTH / 2 - scoreLabel.getWidth() / 2);
 		scoreLabel.setY(youLost.getY() - scoreLabel.getHeight() - 50);
 
 		Label highScore = new Label("Highscore: "
 				+ ScoreHelper.loadLocalScore(), Assets.getInstance().getSkin(),
 				"normaltext", Color.BLACK);
-		highScore.setX(Gdx.graphics.getWidth() / 2 - highScore.getWidth() / 2);
+		highScore.setX(SnowyGame.WIDTH / 2 - highScore.getWidth() / 2);
 		highScore.setY(scoreLabel.getY() - scoreLabel.getHeight());
 
 		final TextButton playAgain = new TextButton("Play Again", Assets
 				.getInstance().getSkin(), "default");
 		playAgain.setPosition(
-				Gdx.graphics.getWidth() / 2 - playAgain.getWidth() / 2,
-				Gdx.graphics.getHeight() / 2 - playAgain.getHeight());
+				SnowyGame.WIDTH / 2 - playAgain.getWidth() / 2,
+				SnowyGame.HEIGHT / 2 - playAgain.getHeight());
 		playAgain.addListener(new ClickListener() {
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y,
@@ -76,7 +77,7 @@ public class AfterGameScreen implements Screen {
 		upload = new TextButton("Upload", Assets.getInstance().getSkin(),
 				"default");
 		upload.setWidth(playAgain.getWidth());
-		upload.setPosition(Gdx.graphics.getWidth() / 2 - upload.getWidth() / 2,
+		upload.setPosition(SnowyGame.WIDTH / 2 - upload.getWidth() / 2,
 				playAgain.getY() - playAgain.getHeight() - 10);
 		upload.addListener(new ClickListener() {
 			@Override
@@ -97,7 +98,7 @@ public class AfterGameScreen implements Screen {
 		exitButton.setWidth(150);
 		exitButton.setHeight(100);
 		exitButton.setPosition(
-				Gdx.graphics.getWidth() - 20 - exitButton.getWidth(), 20);
+				SnowyGame.WIDTH - 20 - exitButton.getWidth(), 20);
 		exitButton.addListener(new ClickListener() {
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y,

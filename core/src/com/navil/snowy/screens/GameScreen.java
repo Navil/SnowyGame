@@ -21,6 +21,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.Timer.Task;
+import com.navil.snowy.AndroidCamera;
 import com.navil.snowy.GameStage;
 import com.navil.snowy.SnowyGame;
 import com.navil.snowy.actors.BottomLine;
@@ -136,8 +137,7 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void resize(int width, int height) {
-		// TODO Auto-generated method stub
-
+		stage.getViewport().setCamera(new AndroidCamera(SnowyGame.WIDTH, SnowyGame.HEIGHT));
 	}
 
 	private Body createBody(Actor actor, BodyType staticbody, float density) {

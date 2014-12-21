@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.navil.snowy.AndroidCamera;
 import com.navil.snowy.SnowyGame;
 import com.navil.snowy.actors.Snowflake;
 import com.navil.snowy.util.Assets;
@@ -50,21 +51,20 @@ public class MainMenu implements Screen {
 
 	@Override
 	public void resize(int width, int height) {
-		// TODO Auto-generated method stub
+		stage.getViewport().setCamera(new AndroidCamera(SnowyGame.WIDTH, SnowyGame.HEIGHT));
 	}
 
 	@Override
 	public void show() {
 		// TODO Auto-generated method stub
-		
 		final Label label = new Label("Snowy the man!",Assets.getInstance().getSkin(),"menutitle",Color.WHITE);
-		label.setPosition(Gdx.graphics.getWidth()/2-label.getWidth()/2,Gdx.graphics.getHeight()-label.getHeight()-20);
+		label.setPosition(SnowyGame.WIDTH/2-label.getWidth()/2,SnowyGame.HEIGHT-label.getHeight()-20);
 		label.setColor(Color.WHITE);
 		final TextButton startButton = new TextButton("Start Game", Assets.getInstance().getSkin());
 
         startButton.setWidth(460);
         startButton.setHeight(256);
-        startButton.setPosition(Gdx.graphics.getWidth() /4 - startButton.getWidth()/2, Gdx.graphics.getHeight()/2 - startButton.getHeight()/2);
+        startButton.setPosition(SnowyGame.WIDTH /4 - startButton.getWidth()/2, SnowyGame.HEIGHT/2 - startButton.getHeight()/2);
         startButton.addListener(new ClickListener(){
             @Override 
             public void clicked(InputEvent event, float x, float y){
@@ -78,7 +78,7 @@ public class MainMenu implements Screen {
         scoreButton.setWidth(460);
         scoreButton.setHeight(256);
         
-        scoreButton.setPosition(Gdx.graphics.getWidth() *3/4 - scoreButton.getWidth()/2, Gdx.graphics.getHeight()/2 - scoreButton.getHeight()/2);
+        scoreButton.setPosition(SnowyGame.WIDTH *3/4 - scoreButton.getWidth()/2, SnowyGame.HEIGHT/2 - scoreButton.getHeight()/2);
         scoreButton.addListener(new ClickListener(){
             @Override 
             public void clicked(InputEvent event, float x, float y){
@@ -97,7 +97,7 @@ public class MainMenu implements Screen {
 
         exitButton.setWidth(150);
         exitButton.setHeight(100);
-        exitButton.setPosition(Gdx.graphics.getWidth() - 20 - exitButton.getWidth(), 20);
+        exitButton.setPosition(SnowyGame.WIDTH - 20 - exitButton.getWidth(), 20);
         exitButton.addListener(new ClickListener(){
             @Override 
             public void clicked(InputEvent event, float x, float y){
@@ -107,7 +107,7 @@ public class MainMenu implements Screen {
         });
 		
         final Label copyright = new Label("\u00A9 Thomas Anderl 2014", Assets.getInstance().getSkin(),"normaltext",Color.BLACK);
-        copyright.setX(Gdx.graphics.getWidth()/2-copyright.getWidth()/2);
+        copyright.setX(SnowyGame.WIDTH/2-copyright.getWidth()/2);
         copyright.setY((scoreButton.getY()-copyright.getHeight())/2);
         
         stage.addActor(label);
