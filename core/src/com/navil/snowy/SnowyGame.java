@@ -12,7 +12,7 @@ public class SnowyGame extends Game {
 	public static final int WIDTH = 1280, HEIGHT = 720;
 	public static float snowyMovespeed = 15;
 	public static final int gravity = 20;
-	public static final float fireInterval = 1;
+	public static final float fireInterval = 0.3f;
 	public static final int scorePerFlame = 10;
 	public static float invincibleTimer = 3;
 	public static final int numLifes = 1;
@@ -21,8 +21,6 @@ public class SnowyGame extends Game {
 	public static GoogleActions googleAction = GoogleActions.DONOTHING;
 	
 	public static IGoogleServices actionResolver;
-
-	public static int currentScore = 0;
 
 	public SnowyGame(IGoogleServices ar) {
 		SnowyGame.actionResolver = ar;

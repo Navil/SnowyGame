@@ -4,6 +4,6 @@ import com.navil.snowy.SnowyGame;
 
 public class BottomLine extends MyActor{
 	public BottomLine(){
-		super(0,-40,SnowyGame.WIDTH*2,1);
+		super(0,-100,SnowyGame.WIDTH*2,1);
     }
 }

@@ -1,5 +1,8 @@
 package com.navil.snowy.screens;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -44,21 +47,24 @@ public class GameScreen implements Screen {
 
 	private boolean removeFire = false;
 	private boolean gameOver = false;
-	
+
 	private boolean prePhase;
 	private Label intro;
 
 	private int numLifes = SnowyGame.numLifes;
 
-	private Array<FireActor> flames = new Array<FireActor>();
+	private List<FireActor> flames;
 	// private Map<Body,Actor> flames = new HashMap<Body,Actor>();
 
 	private GameStage stage;
 	public boolean moveLeft, moveRight;
 	private int score = 0;
+	Task flameGenerator;
 
 	@Override
 	public void show() {
+		flames = new LinkedList<FireActor>();
+		//Gdx.app.error("show", "called");
 		world = new World(new Vector2(0, -20), true);
 		stage = new GameStage(world, this);
 		Gdx.input.setInputProcessor(stage);
@@ -82,16 +88,15 @@ public class GameScreen implements Screen {
 		stage.addActor(scoreLabel);
 		stage.addActor(botLine);
 
-		
 		intro = new Label(
 				"Tab the screen on one of the two halfs to move\ntowards that direction and dodge the flames.",
 				Assets.getInstance().getSkin(), "normaltext", Color.BLACK);
 		intro.setAlignment(Align.center);
-		intro.setX(SnowyGame.WIDTH /2 - intro.getWidth()/2);
-		intro.setY(SnowyGame.HEIGHT /2 - intro.getHeight()/2);
+		intro.setX(SnowyGame.WIDTH / 2 - intro.getWidth() / 2);
+		intro.setY(SnowyGame.HEIGHT / 2 - intro.getHeight() / 2);
 
 		stage.addActor(intro);
-		
+
 		prePhase = true;
 	}
 
@@ -100,8 +105,6 @@ public class GameScreen implements Screen {
 		Gdx.gl.glClearColor(0.8f, 0.8f, 0.8f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-		
-		
 		if (prePhase) {
 			stage.draw();
 			stage.act(delta);
@@ -111,16 +114,16 @@ public class GameScreen implements Screen {
 		moveSnowy();
 
 		timeSinceLastFire += delta;
-		if (timeSinceLastFire >= SnowyGame.fireInterval) {
-
-			timeSinceLastFire = 0;
-			if (!gameOver) {
-				createFlame();
-
-			}
+		if (timeSinceLastFire > SnowyGame.fireInterval) {
+//
+//			timeSinceLastFire -= SnowyGame.fireInterval;
+//			if (!gameOver) {
+//				createFlame();
+//
+//			}
 		}
-		if (removeFire && !gameOver) {
-			FireActor temp = flames.removeIndex(0);
+		if (removeFire) {
+			FireActor temp = flames.remove(0);
 			// temp.clear();
 			temp.setVisible(false);
 			temp.getBody().setActive(false);
@@ -137,21 +140,22 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void resize(int width, int height) {
-		stage.getViewport().setCamera(new AndroidCamera(SnowyGame.WIDTH, SnowyGame.HEIGHT));
+		stage.getViewport().setCamera(
+				new AndroidCamera(SnowyGame.WIDTH, SnowyGame.HEIGHT));
 	}
 
 	private Body createBody(Actor actor, BodyType staticbody, float density) {
 
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.type = staticbody;
-		bodyDef.position.set(actor.getX(), actor.getY());
+		bodyDef.position.set(actor.getX() * actor.getScaleX(), actor.getY()
+				* actor.getScaleY());
 
 		PolygonShape shape = new PolygonShape();
 		shape.setAsBox(actor.getWidth() / 2, actor.getHeight() / 2);
-
 		Body body = world.createBody(bodyDef);
 		body.createFixture(shape, density);
-		body.setGravityScale(10);
+		body.setGravityScale(SnowyGame.gravity);
 		shape.dispose();
 		return body;
 	}
@@ -203,12 +207,19 @@ public class GameScreen implements Screen {
 			snowyActor.moveBodyRight();
 	}
 
+	/**
+	 * Wenn eine Flamme etwas beruehrt hat
+	 */
 	public synchronized void setRemoveBody() {
 		removeFire = true;
 	}
 
+	/**
+	 * Wenn snowy getroffen wurde
+	 */
 	public void snowyHit() {
 		// Gdx.app.error("Invincible: ",""+snowyActor.isInvincible());
+		setRemoveBody();
 		if (snowyActor.isInvincible()) {
 			return;
 		}
@@ -221,25 +232,20 @@ public class GameScreen implements Screen {
 			}
 		}, SnowyGame.invincibleTimer);
 		numLifes--;
-		if (numLifes <= 0)
-			setGameOver();
+		if (numLifes <= 0) {
+			gameOver = true;
+			showLose();
+		}
 
 		// Gdx.app.error("Lifes", ""+numLifes);
-	}
-
-	public void setGameOver() {
-		gameOver = true;
-		if (ScoreHelper.loadLocalScore() < score)
-			ScoreHelper.saveLocalScore(score);
-		showLose();
 	}
 
 	private void showLose() {
 		removeFire = false;
 
 		// remove all bodies and sprites
-		for (int i = 0; i < flames.size; i++) {
-			FireActor fa = flames.get(i);
+		for (int i = 0; i < flames.size(); i++) {
+			FireActor fa = flames.remove(i);
 			fa.setVisible(false);
 			fa.getBody().setActive(false);
 			world.destroyBody(fa.getBody());
@@ -249,24 +255,34 @@ public class GameScreen implements Screen {
 		world.destroyBody(snowyActor.getBody());
 		scoreLabel.setVisible(false);
 		flames.clear();
-
+		flames = null;
+		flameGenerator.cancel();
+		flameGenerator = null;
 		// save score
-		SnowyGame.currentScore = score;
+		if (ScoreHelper.loadLocalScore() < score)
+			ScoreHelper.saveLocalScore(score);
 		((Game) Gdx.app.getApplicationListener())
-				.setScreen(new AfterGameScreen());
+				.setScreen(new AfterGameScreen(score));
 
 	}
 
 	public boolean isGameOver() {
 		return gameOver;
 	}
-	
-	public void setPrePhase(boolean phase){
-		if(!prePhase)
+
+	public void setPrePhase(boolean phase) {
+		if (!prePhase)
 			return;
 		this.prePhase = phase;
-		if(!phase){
+		if (!phase) {
 			intro.remove();
+			flameGenerator = new Task() {
+				@Override
+				public void run() {
+					createFlame();
+				}
+			};
+			Timer.schedule(flameGenerator, 0, SnowyGame.fireInterval);
 		}
 	}
 }

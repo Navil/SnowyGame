@@ -35,8 +35,8 @@ public class AndroidLauncher extends AndroidApplication implements
 
 	private static final String AD_UNIT_ID_INTERSTITIAL = "ca-app-pub-2578016131001286/7549728250";
 	private InterstitialAd interstitialAd;
-
 	private GameHelper gameHelper;
+	private int localScore;
 	
 
 	@Override
@@ -111,7 +111,11 @@ public class AndroidLauncher extends AndroidApplication implements
 
 	@Override
 	public void submitScore(int score) {
-		// TODO Auto-generated method stub
+		// the parameter is -1 when the login succeeded and the score is about to upload
+		if(score != -1)
+			this.localScore = score;
+		else
+			score = localScore;
 		if (isSignedIn() == true) {
 			Games.Leaderboards.submitScore(gameHelper.getApiClient(),
 					getString(R.string.leaderboard_id), score);
@@ -123,16 +127,6 @@ public class AndroidLauncher extends AndroidApplication implements
 		}
 	}
 	
-	@Override
-	public void submitPreviousScore(){
-		if (isSignedIn() == true) {
-			Games.Leaderboards.submitScore(gameHelper.getApiClient(),
-					getString(R.string.leaderboard_id), SnowyGame.currentScore);
-			startActivityForResult(Games.Leaderboards.getLeaderboardIntent(
-					gameHelper.getApiClient(),
-					getString(R.string.leaderboard_id)), 9002);
-		}
-	}
 
 	@Override
 	public void showScores() {

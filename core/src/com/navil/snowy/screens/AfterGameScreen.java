@@ -20,10 +20,15 @@ public class AfterGameScreen implements Screen {
 
 	private Stage stage = new Stage();
 	private TextButton upload;
+	private int currentScore;
+
+	public AfterGameScreen(int score) {
+		this.currentScore = score;
+	}
 
 	@Override
 	public void render(float delta) {
-		Gdx.gl.glClearColor(0.8f, 0.8f, 0.8f, 1);
+		Gdx.gl.glClearColor(0.25f, 0.25f, 0.6f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		stage.act();
 		stage.draw();
@@ -45,7 +50,7 @@ public class AfterGameScreen implements Screen {
 		youLost.setPosition(SnowyGame.WIDTH / 2 - youLost.getWidth() / 2,
 				SnowyGame.HEIGHT - youLost.getHeight());
 
-		Label scoreLabel = new Label("Score: " + SnowyGame.currentScore, Assets
+		Label scoreLabel = new Label("Score: " + currentScore, Assets
 				.getInstance().getSkin(), "normaltext", Color.BLACK);
 		scoreLabel
 				.setX(SnowyGame.WIDTH / 2 - scoreLabel.getWidth() / 2);
@@ -87,7 +92,7 @@ public class AfterGameScreen implements Screen {
 				upload.setDisabled(true);
 				SnowyGame.googleAction = GoogleActions.UPLOADSCORE;
 				upload.setChecked(false);
-				SnowyGame.actionResolver.submitScore(SnowyGame.currentScore);
+				SnowyGame.actionResolver.submitScore(currentScore);
 				upload.setDisabled(false);
 			}
 		});

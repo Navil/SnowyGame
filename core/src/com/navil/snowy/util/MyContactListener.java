@@ -1,5 +1,6 @@
 package com.navil.snowy.util;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
@@ -20,15 +21,13 @@ public class MyContactListener implements ContactListener{
 		
 		Body a = arg0.getFixtureA().getBody();
 		Body b = arg0.getFixtureB().getBody();
-		//Gdx.app.error("Touching2", a.getUserData()+" and " +b.getUserData());
-		
-		if(b.getUserData().toString().contains("fire"))
-			gamescreen.setRemoveBody();
-			
-		if(a.getUserData().equals("snowy")&&b.getUserData().equals("fire")){
-			gamescreen.setRemoveBody();
-			gamescreen.snowyHit();			
-		}
+		//Gdx.app.error("Touching are", a.getUserData()+" and " +b.getUserData());
+		if(b.getUserData().toString().equals("fire")){
+			if(a.getUserData().toString().equals("botLine"))
+				gamescreen.setRemoveBody();
+			else if(a.getUserData().toString().equals("snowy"))
+				gamescreen.snowyHit();	
+		}		
 			
 	}
 
