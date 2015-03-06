@@ -36,8 +36,8 @@ public class MyActor extends Actor {
 	public void updatePosition() {
 		if (texture != null)
 			super.setPosition(getBody().getPosition().x
-					- getTexture().getWidth() / 2, getBody().getPosition().y
-					- getTexture().getHeight() / 2);
+					- getTexture().getWidth()*getScaleX() / 2, getBody().getPosition().y
+					- getTexture().getHeight()*getScaleY() / 2);
 	}
 
 	@Override

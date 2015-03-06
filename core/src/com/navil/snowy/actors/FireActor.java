@@ -9,7 +9,8 @@ import com.navil.snowy.SnowyGame;
 public class FireActor extends MyActor{
 	public FireActor(){
 		super(new Texture(Gdx.files.internal("flame.png")));
-		setPosition(new Random().nextInt(SnowyGame.WIDTH-getTexture().getWidth()),SnowyGame.HEIGHT+100);
+		setScale(1.5f);
+		setPosition(new Random().nextInt(SnowyGame.WIDTH-getTexture().getWidth()*2)+getWidth(),SnowyGame.HEIGHT-100);
 		
     }
 	

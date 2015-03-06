@@ -163,7 +163,7 @@ public class GameScreen implements Screen {
 	private void createFlame() {
 
 		FireActor fireActor = new FireActor();
-		fireActor.setBody(createBody(fireActor, BodyType.DynamicBody, 100),
+		fireActor.setBody(createBody(fireActor, BodyType.DynamicBody, 1),
 				"fire");
 		stage.addActor(fireActor);
 		flames.add(fireActor);
