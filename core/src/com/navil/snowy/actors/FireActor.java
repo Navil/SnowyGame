@@ -5,10 +5,11 @@ import java.util.Random;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.navil.snowy.SnowyGame;
+import com.navil.snowy.util.Assets;
 
 public class FireActor extends MyActor{
 	public FireActor(){
-		super(new Texture(Gdx.files.internal("flame.png")));
+		super(Assets.fire);
 		setScale(1.5f);
 		setPosition(new Random().nextInt(SnowyGame.WIDTH-getTexture().getWidth()*2)+getWidth(),SnowyGame.HEIGHT-100);
 		

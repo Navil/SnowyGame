@@ -2,6 +2,7 @@ package com.navil.snowy.util;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
@@ -10,7 +11,7 @@ public class Assets {
 	private static Assets INSTANCE;
     private static AssetManager manager;
     private static Skin menuSkin;
-
+    public static Texture fire = new Texture(Gdx.files.internal("flame.png"));
     public Assets(){
     	manager = new AssetManager();  
     }
