@@ -35,6 +35,8 @@ public class GoogleHelper implements GameHelperListener {
 			SnowyGame.actionResolver.showScores();
 		}else if(SnowyGame.googleAction.equals(GoogleActions.UPLOADSCORE)){
 			SnowyGame.actionResolver.submitScore(-1);
+		}else if(SnowyGame.googleAction.equals(GoogleActions.OPENACHIEVEMENTS)){
+			SnowyGame.actionResolver.showAchievements();
 		}
 	}
 

@@ -23,5 +23,8 @@
      },  
      com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {  
       default: { up: button, down: button-down, checked: button-down, disabled: button-down, font: normaltext, fontColor: white },  
-     }  
+     },
+	com.badlogic.gdx.scenes.scene2d.ui.CheckBox$CheckBoxStyle: {
+	  default: { checkboxOn: checkBox-checked, checkboxOff: checkBox-unchecked, font: normaltext, fontColor: green }
+},	 
    }  

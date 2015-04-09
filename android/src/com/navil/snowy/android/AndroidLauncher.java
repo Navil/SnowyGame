@@ -37,6 +37,7 @@ public class AndroidLauncher extends AndroidApplication implements
 	private InterstitialAd interstitialAd;
 	private GameHelper gameHelper;
 	private int localScore;
+	private Toast toast;
 	
 
 	@Override
@@ -204,6 +205,34 @@ public class AndroidLauncher extends AndroidApplication implements
 			});
 		} catch (Exception e) {
 		}
+	}
+
+	@Override
+	public void showAchievements() {
+		if (isSignedIn() == true)
+			startActivityForResult(Games.Achievements.getAchievementsIntent(gameHelper.getApiClient()), 9005);
+		else {
+			signIn();
+		}
+	}
+
+	@Override
+	public void showToast(final String text) {
+		runOnUiThread(new Runnable() {
+		    public void run() 
+		    { 
+		    	try{ 
+		    		if(toast.getView().isShown())// true if visible
+		    			return;
+		    	} catch (Exception e) {         // invisible if exception
+		    		toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG);
+	            }
+		    	toast.show();  //finally display it
+		    	
+		    	
+		    }
+		});
+		
 	}
 
 }

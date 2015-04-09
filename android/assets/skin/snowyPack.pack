@@ -1,0 +1,102 @@
+
+snowyPack.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+arial50
+  rotate: false
+  xy: 1, 185
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+button-down
+  rotate: false
+  xy: 1, 83
+  size: 100, 100
+  split: 32, 29, 28, 29
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+button
+  rotate: false
+  xy: 515, 597
+  size: 100, 100
+  split: 20, 24, 30, 30
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+checkBox-checked
+  rotate: false
+  xy: 1, 1
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+checkBox-unchecked
+  rotate: false
+  xy: 103, 103
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+
+snowyPack2.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+greek1201
+  rotate: false
+  xy: 1, 1
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+
+snowyPack3.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+greek1202
+  rotate: false
+  xy: 1, 1
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+
+snowyPack4.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+greek1203
+  rotate: false
+  xy: 1, 1
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+
+snowyPack5.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+gulim1001
+  rotate: false
+  xy: 1, 1
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+
+snowyPack6.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+gulim1002
+  rotate: false
+  xy: 1, 1
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1

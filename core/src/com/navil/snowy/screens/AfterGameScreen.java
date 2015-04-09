@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.navil.snowy.AndroidCamera;
 import com.navil.snowy.SnowyGame;
+import com.navil.snowy.actors.Snowflake;
 import com.navil.snowy.util.Assets;
 import com.navil.snowy.util.GoogleActions;
 import com.navil.snowy.util.ScoreHelper;
@@ -21,6 +22,8 @@ public class AfterGameScreen implements Screen {
 	private Stage stage = new Stage();
 	private TextButton upload;
 	private int currentScore;
+	private float timeSinceLastFlake = 0;
+	private final double flakeInterval = 0.05;
 
 	public AfterGameScreen(int score) {
 		this.currentScore = score;
@@ -30,6 +33,16 @@ public class AfterGameScreen implements Screen {
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0.25f, 0.25f, 0.6f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		
+		timeSinceLastFlake += delta;
+		if (timeSinceLastFlake >= flakeInterval) {
+
+			timeSinceLastFlake = 0;
+			Snowflake sf = new Snowflake();
+			stage.addActor(sf);
+			//Gdx.app.error("NuMFlaked", ""+snowFlakes.size());
+		}
+		
 		stage.act();
 		stage.draw();
 	}
@@ -114,12 +127,28 @@ public class AfterGameScreen implements Screen {
 				return true;
 			}
 		});
+		
+		final TextButton menuButton = new TextButton("Menu", Assets
+				.getInstance().getSkin());
+
+		menuButton.setWidth(150);
+		menuButton.setHeight(100);
+		menuButton.setPosition(20, 20);
+		menuButton.addListener(new ClickListener() {
+			@Override
+			public boolean touchDown(InputEvent event, float x, float y,
+					int pointer, int button) {
+				((Game)Gdx.app.getApplicationListener()).setScreen(new MainMenu());
+				return true;
+			}
+		});
 
 		stage.addActor(scoreLabel);
 		stage.addActor(highScore);
 		stage.addActor(youLost);
 		stage.addActor(playAgain);
 		stage.addActor(exitButton);
+		stage.addActor(menuButton);
 		stage.addActor(upload);
 	}
 

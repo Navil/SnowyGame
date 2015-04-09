@@ -27,14 +27,14 @@ public class Assets {
     // libGDX AssetManager currently supports: Pixmap, Texture, BitmapFont,
     //     TextureAtlas, TiledAtlas, TiledMapRenderer, Music and Sound.
     public void queueLoading() {
-        manager.load("skin/myPack.pack", TextureAtlas.class);
+        manager.load("skin/snowyPack.pack", TextureAtlas.class);
     }
 
     //In here we'll create our skin, so we only have to create it once.
     public void setMenuSkin() {
         if (menuSkin == null)
             menuSkin = new Skin(Gdx.files.internal("skin/skin.json"),
-                    manager.get("skin/myPack.pack", TextureAtlas.class));
+                    manager.get("skin/snowyPack.pack", TextureAtlas.class));
     }
     
     public Skin getSkin(){
