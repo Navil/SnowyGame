@@ -51,7 +51,7 @@ public class GameStage extends Stage implements InputProcessor{
 	
 	public void draw() {
 		super.draw();
-		renderer.render(world, camera.combined);
+		//renderer.render(world, camera.combined);
 	}
 
 	@Override

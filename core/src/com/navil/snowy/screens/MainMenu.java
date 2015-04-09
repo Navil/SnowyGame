@@ -105,7 +105,7 @@ public class MainMenu implements Screen {
             }
         });
 		
-        final Label copyright = new Label("\u00A9 Thomas Anderl 2014", Assets.getInstance().getSkin(),"normaltext",Color.BLACK);
+        final Label copyright = new Label("Created by Thomas Anderl", Assets.getInstance().getSkin(),"normaltext",Color.BLACK);
         copyright.setX(SnowyGame.WIDTH/2-copyright.getWidth()/2);
         copyright.setY((scoreButton.getY()-copyright.getHeight())/2);
         

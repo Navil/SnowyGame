@@ -129,6 +129,7 @@ public class AndroidLauncher extends AndroidApplication implements
 	}
 	
 	public void unlockAchievement(int score){
+		if(score > 0)
 			Games.Achievements.unlock(gameHelper.getApiClient(), getString(R.string.achievement_dodge_the_fire));	
 		if(score > 2000)
 			Games.Achievements.unlock(gameHelper.getApiClient(), getString(R.string.achievement_its_something));	

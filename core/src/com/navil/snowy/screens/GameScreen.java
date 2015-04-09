@@ -2,6 +2,7 @@ package com.navil.snowy.screens;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -54,7 +55,7 @@ public class GameScreen implements Screen {
 
 	private int numLifes = SnowyGame.numLifes;
 
-	private List<FireActor> flames;
+	private CopyOnWriteArrayList<FireActor> flames;
 	// private Map<Body,Actor> flames = new HashMap<Body,Actor>();
 
 	private GameStage stage;
@@ -64,7 +65,7 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void show() {
-		flames = new LinkedList<FireActor>();
+		flames = new CopyOnWriteArrayList<FireActor>();
 		//Gdx.app.error("show", "called");
 		world = new World(new Vector2(0, -20), true);
 		stage = new GameStage(world, this);
@@ -92,7 +93,7 @@ public class GameScreen implements Screen {
 
 		intro = new Label(
 				"Tab the screen on one of the two halfs to move\ntowards that direction and dodge the flames.",
-				Assets.getInstance().getSkin(), "normaltext", Color.BLACK);
+				Assets.getInstance().getSkin(), "normaltext", Color.GRAY);
 		intro.setAlignment(Align.center);
 		intro.setX(SnowyGame.WIDTH / 2 - intro.getWidth() / 2);
 		intro.setY(SnowyGame.HEIGHT / 2 - intro.getHeight() / 2);
@@ -157,18 +158,17 @@ public class GameScreen implements Screen {
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.type = staticbody;
 		if(actor instanceof SnowyActor)
-			bodyDef.position.set(actor.getX()+10, actor.getY());
+			bodyDef.position.set(actor.getX()+15, actor.getY());
 		else
 			bodyDef.position.set(actor.getX(), actor.getY());
 
 		PolygonShape shape = new PolygonShape();
 		if(actor instanceof SnowyActor)
-			shape.setAsBox(actor.getWidth() / 2 -20, actor.getHeight() / 2);
+			shape.setAsBox(actor.getWidth() / 2 -30, actor.getHeight() / 2 -10);
 		else
-			shape.setAsBox(actor.getWidth()*actor.getScaleX() / 2, actor.getHeight()*actor.getScaleY() / 2);	
+			shape.setAsBox(actor.getWidth()*actor.getScaleX() / 2, (actor.getHeight()-10)*actor.getScaleY() / 2);	
 		Body body = world.createBody(bodyDef);
 		body.createFixture(shape, density);
-		body.setGravityScale(SnowyGame.gravity);
 		shape.dispose();
 		return body;
 	}
@@ -176,8 +176,9 @@ public class GameScreen implements Screen {
 	private void createFlame() {
 
 		FireActor fireActor = new FireActor();
-		fireActor.setBody(createBody(fireActor, BodyType.DynamicBody, 1),
-				"fire");
+		Body body = createBody(fireActor, BodyType.DynamicBody, 1);
+		body.setLinearVelocity(0, -SnowyGame.gravity);
+		fireActor.setBody(body,"fire");
 		stage.addActor(fireActor);
 		flames.add(fireActor);
 
