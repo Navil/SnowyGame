@@ -2,4 +2,10 @@
 <resources>
     <string name="app_id">974333722930</string>
     <string name="leaderboard_id">CgkIsoLD1q0cEAIQAQ</string>
+    <string name="achievement_dodge_the_fire">CgkIsoLD1q0cEAIQAg</string>
+ 	<string name="achievement_its_something">CgkIsoLD1q0cEAIQAw</string>
+  	<string name="achievement_silver_like_the_snow">CgkIsoLD1q0cEAIQBA</string>
+  	<string name="achievement_gold_digger">CgkIsoLD1q0cEAIQBQ</string>
+  	<string name="achievement_the_vulcano_is_out_of_fire">CgkIsoLD1q0cEAIQBg</string>
+  	<string name="leaderboard_snowymeter">CgkIsoLD1q0cEAIQAQ</string>
 </resources>

@@ -17,6 +17,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
@@ -69,6 +70,7 @@ public class GameScreen implements Screen {
 		stage = new GameStage(world, this);
 		Gdx.input.setInputProcessor(stage);
 
+		stage.addActor(new Image(Assets.getInstance().vulcano));
 		snowyActor = new SnowyActor();
 		snowyActor.setBody(createBody(snowyActor, BodyType.StaticBody, 1),
 				"snowy");
@@ -80,7 +82,7 @@ public class GameScreen implements Screen {
 		botLine.setBody(createBody(botLine, BodyType.StaticBody, 0), "botLine");
 
 		scoreLabel = new Label("Score: 1234567",
-				Assets.getInstance().getSkin(), "normaltext", Color.BLACK);
+				Assets.getInstance().getSkin(), "normaltext", Color.WHITE);
 		scoreLabel.setText("Score: " + score);
 		scoreLabel.setPosition(SnowyGame.WIDTH - scoreLabel.getWidth(),
 				SnowyGame.HEIGHT - scoreLabel.getHeight());
@@ -97,12 +99,18 @@ public class GameScreen implements Screen {
 
 		stage.addActor(intro);
 
+		flameGenerator = new Task() {
+			@Override
+			public void run() {
+				createFlame();
+			}
+		};
 		prePhase = true;
 	}
 
 	@Override
 	public void render(float delta) {
-		Gdx.gl.glClearColor(0.8f, 0.8f, 0.8f, 1);
+		//Gdx.gl.glClearColor(0.8f, 0.8f, 0.8f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		if (prePhase) {
@@ -148,11 +156,16 @@ public class GameScreen implements Screen {
 
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.type = staticbody;
-		bodyDef.position.set(actor.getX() * actor.getScaleX(), actor.getY()
-				* actor.getScaleY());
+		if(actor instanceof SnowyActor)
+			bodyDef.position.set(actor.getX()+10, actor.getY());
+		else
+			bodyDef.position.set(actor.getX(), actor.getY());
 
 		PolygonShape shape = new PolygonShape();
-		shape.setAsBox(actor.getWidth() / 2, actor.getHeight() / 2);
+		if(actor instanceof SnowyActor)
+			shape.setAsBox(actor.getWidth() / 2 -20, actor.getHeight() / 2);
+		else
+			shape.setAsBox(actor.getWidth()*actor.getScaleX() / 2, actor.getHeight()*actor.getScaleY() / 2);	
 		Body body = world.createBody(bodyDef);
 		body.createFixture(shape, density);
 		body.setGravityScale(SnowyGame.gravity);
@@ -217,9 +230,14 @@ public class GameScreen implements Screen {
 	/**
 	 * Wenn snowy getroffen wurde
 	 */
-	public void snowyHit() {
+	public void snowyHit(Body flameThatHit) {
 		// Gdx.app.error("Invincible: ",""+snowyActor.isInvincible());
-		setRemoveBody();
+		for(FireActor actor: flames){
+			if(actor.getBody().equals(flameThatHit)){
+				actor.setVisible(false);
+				actor.getBody().setActive(false);
+			}
+		}
 		if (snowyActor.isInvincible()) {
 			return;
 		}
@@ -236,7 +254,6 @@ public class GameScreen implements Screen {
 			gameOver = true;
 			showLose();
 		}
-
 		// Gdx.app.error("Lifes", ""+numLifes);
 	}
 
@@ -276,12 +293,6 @@ public class GameScreen implements Screen {
 		this.prePhase = phase;
 		if (!phase) {
 			intro.remove();
-			flameGenerator = new Task() {
-				@Override
-				public void run() {
-					createFlame();
-				}
-			};
 			Timer.schedule(flameGenerator, 0, SnowyGame.fireInterval);
 		}
 	}

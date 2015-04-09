@@ -119,6 +119,7 @@ public class AndroidLauncher extends AndroidApplication implements
 		if (isSignedIn() == true) {
 			Games.Leaderboards.submitScore(gameHelper.getApiClient(),
 					getString(R.string.leaderboard_id), score);
+			unlockAchievement(score);
 			startActivityForResult(Games.Leaderboards.getLeaderboardIntent(
 					gameHelper.getApiClient(),
 					getString(R.string.leaderboard_id)), 9002);
@@ -127,6 +128,17 @@ public class AndroidLauncher extends AndroidApplication implements
 		}
 	}
 	
+	public void unlockAchievement(int score){
+			Games.Achievements.unlock(gameHelper.getApiClient(), getString(R.string.achievement_dodge_the_fire));	
+		if(score > 2000)
+			Games.Achievements.unlock(gameHelper.getApiClient(), getString(R.string.achievement_its_something));	
+		if(score > 4000)
+			Games.Achievements.unlock(gameHelper.getApiClient(), getString(R.string.achievement_silver_like_the_snow));	
+		if(score > 6000)
+			Games.Achievements.unlock(gameHelper.getApiClient(), getString(R.string.achievement_gold_digger));	
+		if(score > 10000)
+			Games.Achievements.unlock(gameHelper.getApiClient(), getString(R.string.achievement_the_vulcano_is_out_of_fire));		
+	}
 
 	@Override
 	public void showScores() {

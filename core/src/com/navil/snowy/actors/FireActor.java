@@ -3,16 +3,14 @@ package com.navil.snowy.actors;
 import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.navil.snowy.SnowyGame;
 import com.navil.snowy.util.Assets;
 
 public class FireActor extends MyActor{
 	public FireActor(){
-		super(Assets.fire);
-		setScale(1.5f);
-		setPosition(new Random().nextInt(SnowyGame.WIDTH-getTexture().getWidth()*2)+getWidth(),SnowyGame.HEIGHT-100);
-		
+		super(Assets.getInstance().fire);	
+		setScale(0.8f+random.nextFloat()*0.4f);
+		setPosition(random.nextInt(SnowyGame.WIDTH-getTexture().getWidth()*2)+getWidth(),SnowyGame.HEIGHT+100);
     }
 	
 	@Override

@@ -41,7 +41,6 @@ public class MainMenu implements Screen {
 
 			timeSinceLastFlake = 0;
 			Snowflake sf = new Snowflake();
-			sf.setPosition(new Random().nextInt(SnowyGame.WIDTH-sf.getTexture().getWidth()),SnowyGame.HEIGHT+100);
 			//snowFlakes.add(sf);
 			stage.addActor(sf);
 			//Gdx.app.error("NuMFlaked", ""+snowFlakes.size());
@@ -102,7 +101,7 @@ public class MainMenu implements Screen {
             @Override 
             public void clicked(InputEvent event, float x, float y){
                 //((Game)Gdx.app.getApplicationListener()).setScreen(new GameScreen());
-            	Gdx.app.exit();
+            	Gdx.app.exit();     	
             }
         });
 		

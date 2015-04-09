@@ -11,8 +11,13 @@ public class Assets {
 	private static Assets INSTANCE;
     private static AssetManager manager;
     private static Skin menuSkin;
-    public static Texture fire = new Texture(Gdx.files.internal("flame.png"));
+    public Texture fire;
+    public Texture snowflake;
+    public Texture vulcano;
     public Assets(){
+    	fire = new Texture(Gdx.files.internal("flame.png"));
+    	snowflake = new Texture(Gdx.files.internal("snowflake_small.png"));
+    	vulcano = new Texture(Gdx.files.internal("vulcano.png"));
     	manager = new AssetManager();  
     }
     
@@ -42,6 +47,7 @@ public class Assets {
     }
     public void dispose(){
     	manager.clear();
+    	menuSkin.dispose();
     	menuSkin = null;
     	Assets.INSTANCE = null;
     }

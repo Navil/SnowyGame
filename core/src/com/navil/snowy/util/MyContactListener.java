@@ -26,8 +26,8 @@ public class MyContactListener implements ContactListener{
 			if(a.getUserData().toString().equals("botLine"))
 				gamescreen.setRemoveBody();
 			else if(a.getUserData().toString().equals("snowy"))
-				gamescreen.snowyHit();	
-		}		
+				gamescreen.snowyHit(b);	
+		}
 			
 	}
 

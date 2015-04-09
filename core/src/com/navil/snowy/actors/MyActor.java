@@ -1,6 +1,7 @@
 package com.navil.snowy.actors;
 
-import com.badlogic.gdx.Gdx;
+import java.util.Random;
+
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -9,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 public class MyActor extends Actor {
 	private Body body;
 	private Texture texture;
-
+	public static Random random = new Random();
 	public MyActor(float x, float y, float width, float height) {
 		setBounds(x, y, width, height);
 	}
