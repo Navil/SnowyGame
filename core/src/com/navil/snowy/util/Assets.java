@@ -3,6 +3,7 @@ package com.navil.snowy.util;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
@@ -14,10 +15,12 @@ public class Assets {
     public Texture fire;
     public Texture snowflake;
     public Texture vulcano;
+	public Texture mainmenuBackground;
     public Assets(){
     	fire = new Texture(Gdx.files.internal("flame.png"));
     	snowflake = new Texture(Gdx.files.internal("snowflake_small.png"));
     	vulcano = new Texture(Gdx.files.internal("vulcano.png"));
+    	mainmenuBackground = new Texture(Gdx.files.internal("mainBackground.png"));
     	manager = new AssetManager();  
     }
     

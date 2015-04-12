@@ -12,7 +12,9 @@ public class SnowyGame extends Game {
 	public static final int WIDTH = 1280, HEIGHT = 720;
 	public static float snowyMovespeed = 15;
 	public static final int gravity = 1400;
-	public static final float fireInterval = 0.11f;
+	public static final float minFireInterval = 1.5f;
+	public static float fireInterval = minFireInterval;
+	public static final float maxFireInterval = 0.19f;
 	public static final int scorePerFlame = 10;
 	public static float invincibleTimer = 3;
 	public static final int numLifes = 1;

@@ -130,16 +130,17 @@ public class AndroidLauncher extends AndroidApplication implements
 	}
 	
 	public void unlockAchievement(int score){
-		if(score > 0)
-			Games.Achievements.unlock(gameHelper.getApiClient(), getString(R.string.achievement_dodge_the_fire));	
-		if(score > 2000)
-			Games.Achievements.unlock(gameHelper.getApiClient(), getString(R.string.achievement_its_something));	
-		if(score > 4000)
-			Games.Achievements.unlock(gameHelper.getApiClient(), getString(R.string.achievement_silver_like_the_snow));	
+		if(score > 10000)
+			Games.Achievements.unlock(gameHelper.getApiClient(), getString(R.string.achievement_the_vulcano_is_out_of_fire));
 		if(score > 6000)
 			Games.Achievements.unlock(gameHelper.getApiClient(), getString(R.string.achievement_gold_digger));	
-		if(score > 10000)
-			Games.Achievements.unlock(gameHelper.getApiClient(), getString(R.string.achievement_the_vulcano_is_out_of_fire));		
+		if(score > 4000)
+			Games.Achievements.unlock(gameHelper.getApiClient(), getString(R.string.achievement_silver_like_the_snow));	
+		if(score > 2000)
+			Games.Achievements.unlock(gameHelper.getApiClient(), getString(R.string.achievement_its_something));	
+		if(score > 0)
+			Games.Achievements.unlock(gameHelper.getApiClient(), getString(R.string.achievement_dodge_the_fire));	
+				
 	}
 
 	@Override
@@ -230,6 +231,18 @@ public class AndroidLauncher extends AndroidApplication implements
 		    	toast.show();  //finally display it
 		    	
 		    	
+		    }
+		});
+		
+	}
+	@Override
+	public void hideToast() {
+		runOnUiThread(new Runnable() {
+		    public void run() 
+		    { 
+		    	if(toast != null)
+		    		toast.cancel();  //finally display it
+
 		    }
 		});
 		

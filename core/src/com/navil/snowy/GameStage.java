@@ -1,15 +1,10 @@
 package com.navil.snowy;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
 import com.navil.snowy.screens.GameScreen;
 
 public class GameStage extends Stage implements InputProcessor{
@@ -48,43 +43,12 @@ public class GameStage extends Stage implements InputProcessor{
 			accumulator -= TIME_STEP;
 		}
 	}
-	
-	public void draw() {
-		super.draw();
-		//renderer.render(world, camera.combined);
-	}
-
-	@Override
-	public boolean keyDown(int keycode) {
-		// TODO Auto-generated method stub
-		if (keycode == Keys.LEFT)
-			gameScreen.moveLeft = true;
-		else if (keycode == Keys.RIGHT)
-			gameScreen.moveRight = true;
-		return true;
-	}
-
-	@Override
-	public boolean keyUp(int keycode) {
-		if (keycode == Keys.LEFT)
-			gameScreen.moveLeft = false;
-		else if (keycode == Keys.RIGHT)
-			gameScreen.moveRight = false;
-		return true;
-	}
-
-	@Override
-	public boolean keyTyped(char character) {
-		// TODO Auto-generated method stub
-		super.keyTyped(character);
-		return false;
-	}
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 		gameScreen.setPrePhase(false);
 		if (gameScreen.isGameOver())
-			super.touchDown(screenX, screenY, pointer, button);
+			return super.touchDown(screenX, screenY, pointer, button);
 		else {
 			fingersDown++;
 			if (screenX > SnowyGame.WIDTH / 2)
@@ -98,7 +62,7 @@ public class GameStage extends Stage implements InputProcessor{
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
 		if (gameScreen.isGameOver())
-			super.touchDown(screenX, screenY, pointer, button);
+			return super.touchUp(screenX, screenY, pointer, button);
 		else {
 			fingersDown--;
 			if (fingersDown == 0) {

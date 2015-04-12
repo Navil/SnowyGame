@@ -10,4 +10,5 @@ public interface IGoogleServices {
 	public boolean isSignedIn();
 	public void showOrLoadInterstital();
 	public void showToast(String text);
+	public void hideToast();
 }

@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -26,7 +27,7 @@ import com.navil.snowy.util.GoogleActions;
 
 public class MainMenu implements Screen {
 
-	private Stage stage = new Stage();
+	private Stage stage;
 	private TextButton scoreButton;
 	private float timeSinceLastFlake = 0;
 	private final double flakeInterval = 0.05;
@@ -61,22 +62,28 @@ public class MainMenu implements Screen {
 	@Override
 	public void show() {
 		// TODO Auto-generated method stub
+		stage = new Stage();
+		stage.addActor(new Image(Assets.getInstance().mainmenuBackground));
+		
+		
 		final Label label = new Label("Snowy the man!", Assets.getInstance()
-				.getSkin(), "menutitle", Color.WHITE);
-		label.setPosition(SnowyGame.WIDTH / 2 - label.getWidth() / 2,
+				.getSkin(), "othertitle", Color.WHITE);
+		label.setFontScale(0.8f);
+		label.setPosition(SnowyGame.WIDTH / 2 - label.getWidth()*label.getFontScaleX() / 2,
 				SnowyGame.HEIGHT - label.getHeight() - 20);
 		label.setColor(Color.WHITE);
 		final TextButton startButton = new TextButton("Start Game", Assets
 				.getInstance().getSkin());
 
-		startButton.setWidth(460);
-		startButton.setHeight(256);
+		
+		startButton.setWidth(450);
+		startButton.setHeight(230);
 		startButton.setPosition(SnowyGame.WIDTH / 4 - startButton.getWidth()
 				/ 2, SnowyGame.HEIGHT / 2 - startButton.getHeight() / 2 +20);
 		startButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				startButton.setText("You clicked the button");
+				SnowyGame.actionResolver.hideToast();
 				((Game) Gdx.app.getApplicationListener())
 						.setScreen(new GameScreen());
 			}
@@ -85,8 +92,8 @@ public class MainMenu implements Screen {
 		scoreButton = new TextButton("Scoreboard", Assets.getInstance()
 				.getSkin());
 
-		scoreButton.setWidth(460);
-		scoreButton.setHeight(256);
+		scoreButton.setWidth(450);
+		scoreButton.setHeight(230);
 
 		scoreButton.setPosition(
 				SnowyGame.WIDTH * 3 / 4 - scoreButton.getWidth() / 2,
@@ -125,10 +132,10 @@ public class MainMenu implements Screen {
 		final TextButton achievementsButton = new TextButton("Achievements",
 				Assets.getInstance().getSkin());
 
-		achievementsButton.setWidth(460);
+		achievementsButton.setWidth(400);
 		achievementsButton.setHeight(100);
 		achievementsButton.setPosition(SnowyGame.WIDTH * 3 / 4
-				- achievementsButton.getWidth() / 2, scoreButton.getY() - 105);
+				- achievementsButton.getWidth() / 2, scoreButton.getY() - 120);
 		achievementsButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
@@ -144,11 +151,11 @@ public class MainMenu implements Screen {
 		final TextButton creditsButton = new TextButton("Credits", Assets
 				.getInstance().getSkin());
 
-		creditsButton.setWidth(460);
+		creditsButton.setWidth(400);
 		creditsButton.setHeight(100);
 		creditsButton.setPosition(
 				SnowyGame.WIDTH / 4 - creditsButton.getWidth() / 2,
-				scoreButton.getY() - 105);
+				scoreButton.getY() - 120);
 
 		creditsButton.addListener(new ClickListener() {
 			@Override
@@ -159,23 +166,25 @@ public class MainMenu implements Screen {
 				SnowyGame.actionResolver
 						.showToast(
 								"This game was created and developed by Thomas Anderl with LibGDX.\n\nAssets were deliviered by Markus Bauer.\n\nTo contact me, write to navil@aon.at\nHope you enjoy :)");
+				creditsButton.toggle();
 				
 			}
 		});
 
-		final Label soundLabel = new Label("Sound: ", Assets.getInstance().getSkin());
-		soundLabel.setPosition(startButton.getX(), 20);
-		soundLabel.setHeight(60);
+//		final Label soundLabel = new Label("Sound: ", Assets.getInstance().getSkin());
+//		soundLabel.setPosition(startButton.getX(), 20);
+//		soundLabel.setHeight(60);
+//		
+//		final CheckBox soundBox = new CheckBox("", Assets.getInstance().getSkin());
+//		soundBox.setPosition(soundLabel.getX()+soundLabel.getWidth()+5, 20);
+//		soundBox.setSize(60, 60);
+//		soundBox.addListener(new ClickListener() {
+//			@Override
+//			public void clicked(InputEvent event, float x, float y) {
+//				//Gdx.app.error("Sound", "clicked");
+//			}
+//		});
 		
-		final CheckBox soundBox = new CheckBox("", Assets.getInstance().getSkin());
-		soundBox.setPosition(soundLabel.getX()+soundLabel.getWidth()+5, 20);
-		soundBox.setSize(60, 60);
-		soundBox.addListener(new ClickListener() {
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				//Gdx.app.error("Sound", "clicked");
-			}
-		});
 		
 		stage.addActor(label);
 		stage.addActor(startButton);
@@ -183,8 +192,8 @@ public class MainMenu implements Screen {
 		stage.addActor(exitButton);
 		stage.addActor(achievementsButton);
 		stage.addActor(creditsButton);
-		stage.addActor(soundBox);
-		stage.addActor(soundLabel);
+		//stage.addActor(soundBox);
+		//stage.addActor(soundLabel);
 		Gdx.input.setInputProcessor(stage);
 
 	}

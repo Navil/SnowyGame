@@ -1,8 +1,9 @@
   {  
      com.badlogic.gdx.graphics.g2d.BitmapFont: {  
       normaltext: { file: arial50.fnt },  
+	  boldtext: { file: bolster70.fnt }, 
       titletext: { file: gulim100.fnt },  
-	  menutitle: { file: greek120.fnt }
+	  othertitle: { file: melod160.fnt }
      },  
      com.badlogic.gdx.graphics.Color: {  
       red: { a: 1, b: 0, g: 0, r: 0 },  
