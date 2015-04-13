@@ -15,7 +15,9 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -114,12 +116,12 @@ public class GameScreen implements Screen {
 	}
 
 	protected void decreaseInterval() {
-		if(SnowyGame.fireInterval>SnowyGame.maxFireInterval){
-			if(score%10 == 0){
+		if (SnowyGame.fireInterval > SnowyGame.maxFireInterval) {
+			if (score % 10 == 0) {
 				SnowyGame.fireInterval -= 0.05f;
-				//Gdx.app.error("FireInt", SnowyGame.fireInterval+"");
+				// Gdx.app.error("FireInt", SnowyGame.fireInterval+"");
 			}
-			if(SnowyGame.fireInterval<SnowyGame.maxFireInterval){
+			if (SnowyGame.fireInterval < SnowyGame.maxFireInterval) {
 				SnowyGame.fireInterval = SnowyGame.maxFireInterval;
 				intervalDecrease.cancel();
 			}
@@ -147,16 +149,15 @@ public class GameScreen implements Screen {
 			// Gdx.app.error("NumFlames", "" + flames.size);
 			score += SnowyGame.scorePerFlame;
 			scoreLabel.setText("Score: " + score);
-			
+
 		}
-		
-		if(!gameOver && timeSinceLastFire >= SnowyGame.fireInterval){
+
+		if (!gameOver && timeSinceLastFire >= SnowyGame.fireInterval) {
 			timeSinceLastFire -= SnowyGame.fireInterval;
 			createFlame();
 		}
 		moveSnowy();
 
-		
 		stage.draw();
 		if (!gameOver)
 			stage.act(delta);
@@ -174,17 +175,34 @@ public class GameScreen implements Screen {
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.type = staticbody;
 		if (actor instanceof SnowyActor)
-			bodyDef.position.set(actor.getX() + 15, actor.getY());
+			bodyDef.position.set(actor.getX(), actor.getY());
+		else if (actor instanceof FireActor)
+			bodyDef.position.set(actor.getX(),
+					actor.getY() - (10 * actor.getScaleY()));
 		else
-			bodyDef.position.set(actor.getX()+(actor.getWidth()*actor.getScaleX())/2, actor.getY());
+			bodyDef.position.set(
+					actor.getX() + (actor.getWidth() * actor.getScaleX()) / 2
+							+ 5, actor.getY() - 5);
 
-		PolygonShape shape = new PolygonShape();
-		if (actor instanceof SnowyActor)
-			shape.setAsBox(actor.getWidth() / 2 - 30,
-					actor.getHeight() / 2 - 10);
-		else
-			shape.setAsBox(actor.getWidth() * actor.getScaleX() / 2,
-					(actor.getHeight() - 10) * actor.getScaleY() / 2);
+		Shape shape = new PolygonShape();
+		if (actor instanceof SnowyActor) {
+			// shape = new CircleShape();
+			// shape.setRadius(actor.getWidth()*actor.getScaleX()/2 -12);
+			// shape = new PolygonShape();
+			Vector2[] vertices = new Vector2[3];
+			vertices[0] = new Vector2(-actor.getWidth() / 2 +18,
+					-actor.getHeight() / 2 +5); // bottom left
+			vertices[1] = new Vector2(7, actor.getHeight() / 2 -3); // top middle
+			vertices[2] = new Vector2(actor.getWidth() / 2 -15, // bottom right
+					-actor.getHeight() / 2 +5);
+			((PolygonShape) shape).set(vertices);
+		} else if (actor instanceof FireActor) {
+			shape = new CircleShape();
+			shape.setRadius(actor.getWidth() * actor.getScaleX() / 2);
+		} else
+			((PolygonShape) shape).setAsBox(
+					(actor.getWidth() * actor.getScaleX() / 2) - 5,
+					(actor.getHeight() * actor.getScaleY() / 2) - 10);
 		Body body = world.createBody(bodyDef);
 		body.createFixture(shape, density);
 		shape.dispose();
@@ -193,16 +211,14 @@ public class GameScreen implements Screen {
 
 	private void createFlame() {
 
-		
 		FireActor fireActor = new FireActor();
 		Body body = createBody(fireActor, BodyType.DynamicBody, 1);
 		body.setLinearVelocity(0, -SnowyGame.gravity);
 		fireActor.setBody(body, "fire");
-		
+
 		stage.addActor(fireActor);
 		flames.add(fireActor);
 		fireActor.setZIndex(10);
-	
 
 	}
 
@@ -244,7 +260,7 @@ public class GameScreen implements Screen {
 	}
 
 	private void moveSnowy() {
-		if(gameOver)
+		if (gameOver)
 			return;
 		if (moveLeft && !moveRight
 				&& snowyActor.getX() - SnowyGame.snowyMovespeed >= 0)
@@ -293,38 +309,36 @@ public class GameScreen implements Screen {
 
 		if (ScoreHelper.loadLocalScore() < score)
 			ScoreHelper.saveLocalScore(score);
-		
+
 		scoreLabel.setVisible(false);
 		// ((Game) Gdx.app.getApplicationListener())
 		// .setScreen(new AfterGameScreen(score));^
-		//stage.addActor(new Image(Assets.getInstance().vulcano));
+		// stage.addActor(new Image(Assets.getInstance().vulcano));
 		final Label youLost = new Label("Snowy melted!", Assets.getInstance()
 				.getSkin(), "othertitle", Color.WHITE);
 
-		
 		youLost.setPosition(SnowyGame.WIDTH / 2 - youLost.getWidth() / 2,
 				SnowyGame.HEIGHT - youLost.getHeight());
 
-		youLost.setColor(youLost.getColor().r, youLost.getColor().g, youLost.getColor().b, transparency);
-		scoreLabel = new Label("Score: " + score, Assets
-				.getInstance().getSkin(), "boldtext", Color.WHITE);
-		scoreLabel
-				.setX(SnowyGame.WIDTH / 2 - scoreLabel.getWidth() / 2);
+		youLost.setColor(youLost.getColor().r, youLost.getColor().g,
+				youLost.getColor().b, transparency);
+		scoreLabel = new Label("Score: " + score, Assets.getInstance()
+				.getSkin(), "boldtext", Color.WHITE);
+		scoreLabel.setX(SnowyGame.WIDTH / 2 - scoreLabel.getWidth() / 2);
 		scoreLabel.setY(youLost.getY() - scoreLabel.getHeight());
-		scoreLabel.setColor(0.6f,1f,0.2f,1);
+		scoreLabel.setColor(0.6f, 1f, 0.2f, 1);
 
 		Label highScore = new Label("Highscore: "
 				+ ScoreHelper.loadLocalScore(), Assets.getInstance().getSkin(),
 				"boldtext", Color.WHITE);
 		highScore.setX(SnowyGame.WIDTH / 2 - highScore.getWidth() / 2);
 		highScore.setY(scoreLabel.getY() - scoreLabel.getHeight());
-		highScore.setColor(0.6f,1f,0.2f,1);
-		
+		highScore.setColor(0.6f, 1f, 0.2f, 1);
+
 		final TextButton playAgain = new TextButton("Play Again", Assets
 				.getInstance().getSkin(), "default");
 		playAgain.setWidth(400);
-		playAgain.setPosition(
-				SnowyGame.WIDTH / 2 - playAgain.getWidth() / 2,
+		playAgain.setPosition(SnowyGame.WIDTH / 2 - playAgain.getWidth() / 2,
 				SnowyGame.HEIGHT / 2 - playAgain.getHeight());
 		playAgain.addListener(new ClickListener() {
 			@Override
@@ -361,8 +375,8 @@ public class GameScreen implements Screen {
 
 		exitButton.setWidth(160);
 		exitButton.setHeight(100);
-		exitButton.setPosition(
-				SnowyGame.WIDTH - 20 - exitButton.getWidth(), 20);
+		exitButton
+				.setPosition(SnowyGame.WIDTH - 20 - exitButton.getWidth(), 20);
 		exitButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
@@ -381,12 +395,13 @@ public class GameScreen implements Screen {
 		menuButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				
-				((Game)Gdx.app.getApplicationListener()).setScreen(new MainMenu());
+
+				((Game) Gdx.app.getApplicationListener())
+						.setScreen(new MainMenu());
 			}
 		});
 		menuButton.setColor(original.r, original.g, original.b, transparency);
-		
+
 		stage.addActor(scoreLabel);
 		stage.addActor(highScore);
 		stage.addActor(youLost);
@@ -394,9 +409,6 @@ public class GameScreen implements Screen {
 		stage.addActor(exitButton);
 		stage.addActor(menuButton);
 		stage.addActor(upload);
-		
-		
-		
 
 	}
 
@@ -410,7 +422,7 @@ public class GameScreen implements Screen {
 		this.prePhase = phase;
 		if (!phase) {
 			intro.remove();
-			Timer.schedule(intervalDecrease,0, 0.5f);
+			Timer.schedule(intervalDecrease, 0, 0.5f);
 		}
 	}
 }

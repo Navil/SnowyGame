@@ -13,7 +13,7 @@ public class GameStage extends Stage implements InputProcessor{
 	private OrthographicCamera camera;
 
 	private World world;
-	private final float TIME_STEP = 1 / 300f;
+	private final float TIME_STEP = 1 / 400f;
 	private float accumulator = 0f;
 
 	private GameScreen gameScreen;
@@ -31,7 +31,12 @@ public class GameStage extends Stage implements InputProcessor{
 		camera.update();
 	}
 	
-
+	@Override
+	public void draw() {
+		super.draw();
+		//renderer.render(world, camera.combined);
+	}
+	
 	@Override
 	public void act(float delta) {
 		super.act(delta);
