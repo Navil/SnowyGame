@@ -1,15 +1,15 @@
 package com.navil.snowy;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.navil.snowy.screens.GameScreen;
 
 public class GameStage extends Stage implements InputProcessor{
 
-	private Box2DDebugRenderer renderer;
+	//private Box2DDebugRenderer renderer;
 	private OrthographicCamera camera;
 
 	private World world;
@@ -20,7 +20,7 @@ public class GameStage extends Stage implements InputProcessor{
 	private byte fingersDown = 0;
 
 	public GameStage(World world, GameScreen gameScreen) {
-		renderer = new Box2DDebugRenderer();
+		//renderer = new Box2DDebugRenderer();
 		this.world = world;
 		this.gameScreen = gameScreen;
 		setUpCamera();
@@ -56,7 +56,7 @@ public class GameStage extends Stage implements InputProcessor{
 			return super.touchDown(screenX, screenY, pointer, button);
 		else {
 			fingersDown++;
-			if (screenX > SnowyGame.WIDTH / 2)
+			if (screenX > Gdx.graphics.getWidth() / 2)
 				gameScreen.moveRight = true;
 			else
 				gameScreen.moveLeft = true;
@@ -74,7 +74,7 @@ public class GameStage extends Stage implements InputProcessor{
 				gameScreen.moveLeft = false;
 				gameScreen.moveRight = false;
 			}
-			if (screenX > SnowyGame.WIDTH / 2)
+			if (screenX > Gdx.graphics.getWidth() / 2)
 				gameScreen.moveRight = false;
 			else
 				gameScreen.moveLeft = false;

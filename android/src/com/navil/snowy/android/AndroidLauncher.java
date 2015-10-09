@@ -1,12 +1,8 @@
 package com.navil.snowy.android;
 
-import java.util.concurrent.TimeUnit;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Looper;
 import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
@@ -14,20 +10,10 @@ import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.Result;
-import com.google.android.gms.common.api.Scope;
-import com.google.android.gms.common.api.Api.a;
-import com.google.android.gms.common.api.Api.c;
-import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
-import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
 import com.google.android.gms.games.Games;
-import com.google.android.gms.plus.Plus;
 import com.google.example.games.basegameutils.GameHelper;
 import com.google.example.games.basegameutils.GameHelper.GameHelperListener;
 import com.navil.snowy.SnowyGame;
-import com.navil.snowy.android.R;
 import com.navil.snowy.util.IGoogleServices;
 
 public class AndroidLauncher extends AndroidApplication implements
@@ -102,12 +88,6 @@ public class AndroidLauncher extends AndroidApplication implements
 		} catch (Exception e) {
 			Log.e("MainActivity", "Log out failed: " + e.getMessage() + ".");
 		}
-	}
-
-	@Override
-	public void rateGame() {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override

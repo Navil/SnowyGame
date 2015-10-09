@@ -1,20 +1,13 @@
 package com.navil.snowy.screens;
 
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Random;
-
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
-import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -160,12 +153,9 @@ public class MainMenu implements Screen {
 		creditsButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				// ((Game)Gdx.app.getApplicationListener()).setScreen(new
-				// GameScreen());
-				// Gdx.app.exit();
 				SnowyGame.actionResolver
 						.showToast(
-								"This game was created and developed by Thomas Anderl with LibGDX.\n\nAssets were deliviered by Markus Bauer.\n\nTo contact me, write to navil@aon.at\nHope you enjoy :)");
+								"This game was created and developed by Thomas Anderl with LibGDX.\n\nAssets were deliviered by Markus Bauer.\n\nHope you enjoy :)");
 				creditsButton.toggle();
 				
 			}

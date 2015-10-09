@@ -1,16 +1,12 @@
 package com.navil.snowy.screens;
 
-import java.util.LinkedList;
-import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -26,7 +22,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.Timer.Task;
 import com.navil.snowy.AndroidCamera;
@@ -51,6 +46,7 @@ public class GameScreen implements Screen {
 	private TextButton upload;
 
 	public static World world;
+	private Image background;
 
 	private boolean removeFire = false;
 	private boolean gameOver = false;
@@ -77,7 +73,8 @@ public class GameScreen implements Screen {
 		Gdx.input.setInputProcessor(stage);
 
 		SnowyGame.fireInterval = SnowyGame.minFireInterval;
-		stage.addActor(new Image(Assets.getInstance().vulcano));
+		background = new Image(Assets.getInstance().vulcano);
+		stage.addActor(background);
 		snowyActor = new SnowyActor();
 		snowyActor.setBody(createBody(snowyActor, BodyType.StaticBody, 1),
 				"snowy");
@@ -98,8 +95,8 @@ public class GameScreen implements Screen {
 		stage.addActor(botLine);
 
 		intro = new Label(
-				"Tab the screen on one of the two halfs to move\ntowards that direction and dodge the flames.",
-				Assets.getInstance().getSkin(), "normaltext", Color.GRAY);
+				"Touch the screen on one of the two halfs to move\ntowards that direction and dodge the flames.",
+				Assets.getInstance().getSkin(), "normaltext", Color.WHITE);
 		intro.setAlignment(Align.center);
 		intro.setX(SnowyGame.WIDTH / 2 - intro.getWidth() / 2);
 		intro.setY(SnowyGame.HEIGHT / 2 - intro.getHeight() / 2);
@@ -117,13 +114,11 @@ public class GameScreen implements Screen {
 
 	protected void decreaseInterval() {
 		if (SnowyGame.fireInterval > SnowyGame.maxFireInterval) {
-			if (score % 10 == 0) {
-				SnowyGame.fireInterval -= 0.05f;
-				// Gdx.app.error("FireInt", SnowyGame.fireInterval+"");
-			}
+				SnowyGame.fireInterval -= 0.1f*SnowyGame.fireInterval+0.001;		
 			if (SnowyGame.fireInterval < SnowyGame.maxFireInterval) {
 				SnowyGame.fireInterval = SnowyGame.maxFireInterval;
 				intervalDecrease.cancel();
+				Gdx.app.error("Max hard","Yay");
 			}
 		}
 	}
@@ -306,6 +301,7 @@ public class GameScreen implements Screen {
 
 	private void showLose() {
 		removeFire = false;
+		background.setColor(1, 1, 1, 0.8f);
 
 		if (ScoreHelper.loadLocalScore() < score)
 			ScoreHelper.saveLocalScore(score);
@@ -326,14 +322,14 @@ public class GameScreen implements Screen {
 				.getSkin(), "boldtext", Color.WHITE);
 		scoreLabel.setX(SnowyGame.WIDTH / 2 - scoreLabel.getWidth() / 2);
 		scoreLabel.setY(youLost.getY() - scoreLabel.getHeight());
-		scoreLabel.setColor(0.6f, 1f, 0.2f, 1);
+		scoreLabel.setColor(0.7f, 1f, 0.3f, 1);
 
 		Label highScore = new Label("Highscore: "
 				+ ScoreHelper.loadLocalScore(), Assets.getInstance().getSkin(),
 				"boldtext", Color.WHITE);
 		highScore.setX(SnowyGame.WIDTH / 2 - highScore.getWidth() / 2);
 		highScore.setY(scoreLabel.getY() - scoreLabel.getHeight());
-		highScore.setColor(0.6f, 1f, 0.2f, 1);
+		highScore.setColor(0.7f, 1f, 0.3f, 1);
 
 		final TextButton playAgain = new TextButton("Play Again", Assets
 				.getInstance().getSkin(), "default");
